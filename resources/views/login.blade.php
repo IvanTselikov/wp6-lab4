@@ -4,13 +4,12 @@
 
 @section('content')
     <h3 class="text-center mb-3 mt-4">Вход</h3>
-    <form action="{{ route('login-submit') }}" id="author-form" method="POST" novalidate>
+    <form action="{{ route('login-submit') }}" id="author-form" method="POST">
         @csrf
 
         <div class="mt-4 mb-3">
             <label for="login" class="col-form-label">Логин*</label>
-            <input name="login" type="text" class="form-control" id="author-input-login" autocomplete="off"
-                required>
+            <input name="login" type="text" class="form-control" id="author-input-login" autocomplete="off">
             <div class="error-message text-danger d-none" data-input="author-input-login">
                 Пожалуйста, введите логин.
             </div>
@@ -20,7 +19,7 @@
             <label for="password" class="col-form-label">Пароль*</label>
             <div class="password-group input-group mb-3">
                 <input name="password" type="password" class="form-control" id="author-input-password"
-                    autocomplete="off" aria-describedby="author-show-password" required>
+                    autocomplete="off" aria-describedby="author-show-password">
                 <button type="button" class="btn btn-primary" id="author-show-password">
                     <i class="fa fa-eye-slash" aria-hidden="true"></i>
                 </button>
@@ -33,6 +32,17 @@
         <div class="form-text mb-3">
             * - поля, обязательные для заполнения
         </div>
+
+        @if($errors->any())
+
+            <div class="alert alert-danger">
+
+                @foreach($errors->all() as $err)
+                    <li>{{ $err }}</li>
+                @endforeach
+
+            </div>
+        @endif
 
         <div class="d-grid gap-2">
             <button name="submitAuthor" type="submit" form="author-form" class="btn btn-primary btn-block my-2">Войти</button>
